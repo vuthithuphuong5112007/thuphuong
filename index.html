@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Đăng nhập</title>
+  <style>
+    :root{
+      --bg:#0f1724;
+      --card:#0b1220;
+      --accent:#7c3aed;
+      --muted:#9aa4b2;
+      --glass: rgba(255,255,255,0.04);
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;font-family:Inter,system-ui,Segoe UI,Roboto,'Helvetica Neue',Arial;background:linear-gradient(135deg,#071029 0%, #0b1220 40%, #071a2b 100%);color:#e6eef6;
+    }
+    .container{width:100%;max-width:980px;padding:24px}
+    .card{
+      background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border-radius:14px;padding:28px;display:grid;grid-template-columns:1fr 420px;gap:24px;box-shadow:0 8px 30px rgba(2,6,23,0.6);align-items:center
+    }
+    .brand{padding:18px}
+    .brand h1{margin:0;font-size:20px;letter-spacing:0.4px}
+    .lead{color:var(--muted);margin-top:8px;font-size:14px}
+    .illustration{display:flex;align-items:center;justify-content:center;height:100%;}
+    .illustration svg{width:100%;max-width:360px;opacity:0.95}
+
+    form{background:var(--card);padding:22px;border-radius:10px}
+    h2{margin:0 0 10px 0}
+    .field{margin-bottom:12px}
+    label{display:block;font-size:13px;margin-bottom:6px;color:var(--muted)}
+    input[type=text], input[type=password], input[type=email]{
+      width:100%;padding:12px 14px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);background:var(--glass);color:inherit;font-size:15px
+    }
+    .row{display:flex;gap:12px}
+    .btn{
+      display:inline-flex;align-items:center;justify-content:center;padding:11px 14px;border-radius:10px;border:0;background:linear-gradient(90deg,var(--accent),#5b21b6);color:white;font-weight:600;cursor:pointer;font-size:15px
+    }
+    .muted-link{color:var(--muted);font-size:13px;text-decoration:none}
+    .small{font-size:13px;color:var(--muted)}
+    .hr{height:1px;background:rgba(255,255,255,0.03);margin:12px 0;border-radius:2px}
+    .actions{display:flex;align-items:center;justify-content:space-between;margin-top:8px}
+    .remember{display:flex;align-items:center;gap:10px}
+    .error{color:#ffb4b4;font-size:13px;margin-top:6px}
+    .show-pass{background:transparent;border:0;color:var(--muted);cursor:pointer;padding:0 8px}
+
+    @media (max-width:880px){
+      .card{grid-template-columns:1fr;}
+      .illustration{order:-1}
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="card">
+      <div class="brand">
+        <h1>MyApp — Đăng nhập</h1>
+        <p class="lead">Đăng nhập để tiếp tục. Nhập email và mật khẩu của bạn.</p>
+        <div class="illustration" aria-hidden="true">
+          <!-- simple SVG illustration -->
+          <svg viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg" role="img">
+            <defs>
+              <linearGradient id="g" x1="0" x2="1">
+                <stop offset="0" stop-color="#6ee7b7" stop-opacity="0.12"/>
+                <stop offset="1" stop-color="#7c3aed" stop-opacity="0.12"/>
+              </linearGradient>
+            </defs>
+            <rect x="10" y="40" width="560" height="300" rx="18" fill="url(#g)" stroke="rgba(255,255,255,0.03)"/>
+            <circle cx="160" cy="160" r="60" fill="rgba(255,255,255,0.03)"/>
+            <rect x="260" y="120" width="240" height="28" rx="6" fill="rgba(255,255,255,0.03)"/>
+            <rect x="260" y="160" width="200" height="20" rx="6" fill="rgba(255,255,255,0.02)"/>
+          </svg>
+        </div>
+      </div>
+
+      <form id="loginForm" novalidate>
+        <h2>Chào mừng trở lại</h2>
+
+        <div class="field">
+          <label for="email">Email</label>
+          <input id="email" name="email" type="email" placeholder="you@example.com" required aria-required="true">
+          <div class="error" id="emailError" aria-live="polite"></div>
+        </div>
+
+        <div class="field">
+          <label for="password">Mật khẩu</label>
+          <div style="display:flex;align-items:center;gap:8px;">
+            <input id="password" name="password" type="password" placeholder="Ít nhất 6 ký tự" required minlength="6" style="flex:1">
+            <button type="button" class="show-pass" id="togglePass" aria-label="Hiển thị mật khẩu">👁️</button>
+          </div>
+          <div class="error" id="passError" aria-live="polite"></div>
+        </div>
+
+        <div class="actions">
+          <label class="remember"><input id="remember" type="checkbox"> Ghi nhớ</label>
+          <a href="#" class="muted-link">Quên mật khẩu?</a>
+        </div>
+
+        <div class="hr"></div>
+
+        <div style="display:flex;gap:12px;align-items:center;justify-content:space-between">
+          <button class="btn" type="submit">Đăng nhập</button>
+          <div style="text-align:right">
+            <div class="small">Hoặc</div>
+            <a class="muted-link" href="#">Đăng ký tài khoản mới</a>
+          </div>
+        </div>
+
+        <div id="result" style="margin-top:12px"></div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    const form = document.getElementById('loginForm');
+    const email = document.getElementById('email');
+    const password = document.getElementById('password');
+    const emailError = document.getElementById('emailError');
+    const passError = document.getElementById('passError');
+    const result = document.getElementById('result');
+    const togglePass = document.getElementById('togglePass');
+
+    togglePass.addEventListener('click', ()=>{
+      if(password.type === 'password') { password.type = 'text'; togglePass.textContent = '🙈'; }
+      else { password.type = 'password'; togglePass.textContent = '👁️'; }
+    });
+
+    function validate(){
+      let ok = true;
+      emailError.textContent = '';
+      passError.textContent = '';
+
+      if(!email.value){ emailError.textContent = 'Vui lòng nhập email.'; ok=false; }
+      else {
+        // simple email regex
+        const re = /^\S+@\S+\.\S+$/;
+        if(!re.test(email.value)){ emailError.textContent = 'Email không đúng định dạng.'; ok=false; }
+      }
+
+      if(!password.value){ passError.textContent = 'Vui lòng nhập mật khẩu.'; ok=false; }
+      else if(password.value.length < 6){ passError.textContent = 'Mật khẩu phải có ít nhất 6 ký tự.'; ok=false; }
+
+      return ok;
+    }
+
+    form.addEventListener('submit', (e)=>{
+      e.preventDefault();
+      result.textContent='';
+      if(!validate()) return;
+
+      // giả lập gửi lên server
+      const payload = { email: email.value, password: password.value, remember: document.getElementById('remember').checked };
+
+      // debug: show payload (xóa khi gửi thật)
+      result.textContent = 'Đang gửi...';
+
+      // mô phỏng delay
+      setTimeout(()=>{
+        result.textContent = '';
+        // giả sử login thành công khi email chứa "@" và mật khẩu là "123456"
+        if(payload.password === '123456'){
+          result.innerHTML = '<div style="color: #b7ffd6;">Đăng nhập thành công — chuyển hướng...</div>';
+          // redirect thật: window.location.href = '/dashboard'
+        } else {
+          result.innerHTML = '<div style="color: #ffb4b4;">Đăng nhập thất bại: email hoặc mật khẩu không đúng.</div>';
+        }
+      },800);
+    });
+  </script>
+</body>
+</html>
